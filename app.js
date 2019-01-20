@@ -427,11 +427,6 @@ class StreamLabs extends OAuth2 {
             method: 'GET',
             url: url,
             params: params
-        }).then((response) => {
-            let json = CircularJSON.stringify(response);
-            res.send(json);
-        }).catch((error) => {
-            console.log(error);
         });
     }
 
@@ -440,11 +435,6 @@ class StreamLabs extends OAuth2 {
             method: 'POST',
             url: url,
             data: data
-        }).then((response) => {
-            let json = CircularJSON.stringify(response);
-            res.send(json);
-        }).catch((error) => {
-            console.log(error);
         });
     }
 }

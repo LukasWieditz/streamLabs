@@ -24,7 +24,6 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "circular-json": "^0.5.9",
     "express": "^4.16.1",
     "oauth20": "^2.0.2",
     "request": "^2.83.0"
