@@ -1,18 +1,15 @@
 let axios = require('axios');
+let CircularJSON = require('circular-json');
 let OAuth2 = require('oauth20');
 let credentialsStreamLabs = Symbol('credentialsStreamLabs');
 let urlsStreamLabs = Symbol('urlsStreamLabs');
 let getStreamLabs = Symbol('getStreamLabs');
 let postStreamLabs = Symbol('postStreamLabs');
 
-class StreamLabs {
+class StreamLabs extends OAuth2 {
     constructor(data) {
         super(null, null, null, null, data.accessToken,
             'https://www.streamlabs.com/api/v1.0/');
-
-        this[credentialsStreamLabs] = {
-            socketToken: socketToken
-        };
 
         this[urlsStreamLabs] = {
             socketToken: 'socket/token',
@@ -58,8 +55,6 @@ class StreamLabs {
 
     getCredentials() {
         let credentials = super.getCredentials();
-        credentials.socketToken = this[credentialsStreamLabs].socketToken;
-
         return credentials;
     }
 
@@ -236,7 +231,7 @@ class StreamLabs {
     getPoints(channel, username) {
         let url = this[urlsStreamLabs].points.get;
 
-        points = {
+        let points = {
             access_token: this.getCredentials().accessToken,
             username: username,
             channel: channel,
@@ -432,6 +427,11 @@ class StreamLabs {
             method: 'GET',
             url: url,
             params: params
+        }).then((response) => {
+            let json = CircularJSON.stringify(response);
+            res.send(json);
+        }).catch((error) => {
+            console.log(error);
         });
     }
 
@@ -440,6 +440,11 @@ class StreamLabs {
             method: 'POST',
             url: url,
             data: data
+        }).then((response) => {
+            let json = CircularJSON.stringify(response);
+            res.send(json);
+        }).catch((error) => {
+            console.log(error);
         });
     }
 }
