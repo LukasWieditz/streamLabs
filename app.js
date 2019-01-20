@@ -1,5 +1,4 @@
 let axios = require('axios');
-let CircularJSON = require('circular-json');
 let OAuth2 = require('oauth20');
 let credentialsStreamLabs = Symbol('credentialsStreamLabs');
 let urlsStreamLabs = Symbol('urlsStreamLabs');
